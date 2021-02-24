@@ -52,6 +52,8 @@ for (locus in 1:Nloci) {
     }
   }
 }
+par (mfrow=c(1,1))
+phytools::densityTree(outPhy)
 # No, the plot is not different than expected, yet, with recombination rate, for example, the plot would be expected to change.
 model3 <- coala::coal_model(10, 50)
 coala::feat_mutation(coala::par_prior("theta", sample.init(100, 1))) + coala::sumstat_nucleotide_div()
