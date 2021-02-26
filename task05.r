@@ -10,32 +10,32 @@ model <- coala::coal_model (sample_size = 5, loci_number = 10, loci_length = 500
 stats <- simulate (model, nsim = 1)
 Diversity <- stats$pi
 Nloci <- length (stats$trees)
-t1 <- read.tree (text=stats$trees [[1]][1])
+t1 <- ape::read.tree (text=stats$trees [[1]][1])
 plot (t1)
-axisPhylo ()
+ape::axisPhylo ()
 # Individuals die off or are born into the population. Effective population size changes with its environment.
-Agel <- max (node.height(t1))
-t2 <- read.tree (text=stats$trees [[2]][1])
+Agel <- max (ape::node.height(t1))
+t2 <- ape::read.tree (text=stats$trees [[2]][1])
 plot (t2)
-axisPhylo()
+ape::axisPhylo()
 par (mfrow=c(1,2))
 plot (t1)
-axisPhylo()
+ape::axisPhylo()
 plot (t2)
-axisPhylo()
+ape::axisPhylo()
 # The plots do not match.
-comparePhylo(t1, t2)
-t1_1 <- read.tree (text=stats$trees [[1]][1])
-t1_2 <- read.tree (text=stats$trees [[1]][2])
-comparePhylo(t1_1, t1_2)
+ape::comparePhylo(t1, t2)
+t1_1 <- ape::read.tree (text=stats$trees [[1]][1])
+t1_2 <- ape::read.tree (text=stats$trees [[1]][2])
+ape::comparePhylo(t1_1, t1_2)
 for (locus in 1:Nloci) {
   ntrees <- length (stats$trees [[locus]])
   for (n in 1:ntrees) {
     if (locus == 1 && n == 1) {
-      outPhy <- read.tree (text=stats$trees [[locus]][n])
+      outPhy <- ape::read.tree (text=stats$trees [[locus]][n])
     }
     else {
-      outPhy <- ape:::c.phylo(outPhy, read.tree (text=stats$trees [[locus]][n]))
+      outPhy <- ape:::c.phylo(outPhy, ape::read.tree (text=stats$trees [[locus]][n]))
     }
   }
 }
@@ -45,10 +45,10 @@ for (locus in 1:Nloci) {
   ntrees <- length (stats$trees [[locus]])
   for (n in 1:ntrees) {
     if (locus == 1 && n == 1) {
-      outPhy <- read.tree (text=stats$trees [[locus]][n])
+      outPhy <- ape::read.tree (text=stats$trees [[locus]][n])
     }
     else {
-      outPhy <- ape:::c.multiPhylo (outPhy, read.tree (text=stats$trees [[locus]][n]))
+      outPhy <- ape:::c.multiPhylo (outPhy, ape::read.tree (text=stats$trees [[locus]][n]))
     }
   }
 }
