@@ -7,7 +7,7 @@
 
 setwd("C:\\Users\\justj\\Desktop\\Evolution\\Tasks\\Project")
 my_data <- read.csv(file = "data_complete.csv")
-write.csv (my_data, 'hypothesis.csv')
+write.csv (my_data, 'analysisplanhypothesis.csv')
 
 # Data collected from https://datadryad.org/stash/dataset/doi:10.5061/dryad.6q750
 # Data obtained from host_x_symbiont_sporulation tab in the datasheet.
@@ -42,6 +42,12 @@ result.mean <- mean (y)
 print (result.mean)
 # The average is 1.
 
+# Make a dataframe.
+plotting.data <- expand.grid (
+  host.genotype = seq(min(my_data$ï..Host.Genotype), max(my_data$ï..Host.Genotype), length.out=30),
+  symbiont.genotype = c(min(my_data$Symbiont.Genotype), mean(my_data$Symbiont.Genotype), max(my_data$Symbiont.Genotype))
+)
+
 # Median, median, and mode can also be calculated by listing the value with the function.
 mean (sporulated)
 mean (plotting.data$host.genotype)
@@ -61,20 +67,14 @@ cor(my_data$ï..Host.Genotype, my_data$Symbiont.Genotype)
 # Check to see if dependent variable, average rate of sporulation, follows a normal distribution.
 hist (my_data$Sporulated)
 
-# Make a dataframe.
-plotting.data <- expand.grid (
-  host.genotype = seq(min(my_data$ï..Host.Genotype), max(my_data$ï..Host.Genotype), length.out=30),
-    symbiont.genotype = c(min(my_data$Symbiont.Genotype), mean(my_data$Symbiont.Genotype), max(my_data$Symbiont.Genotype))
-)
-
- # Sample graphs for a regression.
+# Sample graphs for a regression.
+library (ggplot2)
 sporulated.plot <- ggplot (my_data, aes (x=host.genotype, y=sporulated))
 geom_point ()
-sporulated.plot
 
+library (ggplot2)
 sporulated.plot2 <- ggplot (my_data, aes (x=symbiont.genotype, y=sporulated))
 geom_point ()
-sporulated.plot2
 
 # Back to the sample ANOVA!
 # Run a one-way ANOVA. I'm running a one-way ANOVA for THIS example.
